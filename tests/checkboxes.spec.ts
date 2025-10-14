@@ -12,4 +12,10 @@ test.describe('Checkboxes', () => {
         await mp.checkboxesPage.checkCheckbox1();
         await mp.checkboxesPage.uncheckCheckbox2();
         await mp.checkboxesPage.assertCheckboxState(true, false);});
+
+    test('Checkboxes - Uncheck and Check', async () => {
+        await mp.checkboxesPage.uncheckCheckbox1();
+        await mp.checkboxesPage.checkCheckbox2();
+        await mp.checkboxesPage.assertCheckboxState(false, true);
+    });
 });
