@@ -1,21 +1,14 @@
-import { test, expect } from '@playwright/test';
-import ManagePage from '../pages/ManagePage';
+import { test, expect } from '../fixtures/pom.fixture';
 
 test.describe('Checkboxes', () => {
-    let mp: ManagePage;
-    test.beforeEach(async ({ page }) => {
-        mp = new ManagePage(page);
-        await mp.checkboxesPage.openCheckboxesPage();
-    });
+    test('Checkboxes - Check and Uncheck', async ({ pm }) => {
+        await pm.checkboxesPage.checkCheckbox1();
+        await pm.checkboxesPage.uncheckCheckbox2();
+        await pm.checkboxesPage.assertCheckboxState(true, false);});
 
-    test('Checkboxes - Check and Uncheck', async () => {
-        await mp.checkboxesPage.checkCheckbox1();
-        await mp.checkboxesPage.uncheckCheckbox2();
-        await mp.checkboxesPage.assertCheckboxState(true, false);});
-
-    test('Checkboxes - Uncheck and Check', async () => {
-        await mp.checkboxesPage.uncheckCheckbox1();
-        await mp.checkboxesPage.checkCheckbox2();
-        await mp.checkboxesPage.assertCheckboxState(false, true);
+    test('Checkboxes - Uncheck and Check', async ({ pm }) => {
+        await pm.checkboxesPage.uncheckCheckbox1();
+        await pm.checkboxesPage.checkCheckbox2();
+        await pm.checkboxesPage.assertCheckboxState(false, true);
     });
 });

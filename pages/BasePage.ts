@@ -27,6 +27,10 @@ export abstract class BasePage {
         await expect(this.toLocator(selector)).toBeVisible();
     }
 
+    // locator
+    public locator(selector: string | Locator): Locator {
+        return this.toLocator(selector);
+    }
 
     /* ======= Utilities ======= */
     // This method is used to convert a string selector to a Playwright Locator
