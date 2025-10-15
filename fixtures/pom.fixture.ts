@@ -16,9 +16,9 @@ export const test = base.extend<MyFixtures>({
         const pm = new PomManager(page);
         await use(pm);
     },
-    validUser: async (_, use) => {
+    validUser: async ({}, use) => {
         await use(validUser);
-    },
+    }
 });
 
 export { expect } from '@playwright/test';
