@@ -1,25 +1,19 @@
-import { test, expect } from '@playwright/test';
-import ManagePage from '../pages/ManagePage';
+import { test, expect } from '../fixtures/pom.fixture';
+
 
 test.describe('Login Flow', () => {
-    let mp: ManagePage;
-    test.beforeEach(async ({ page }) => {
-        mp = new ManagePage(page);
-        await mp.loginPage.openLoginPage();
+    test('Successful login with valid credentials', async ({pm, validUser}) => {
+        await pm.loginPage.userLogin(validUser.username, validUser.password);
+        await pm.securePage.assertSecurePage();
     });
 
-    test('Successful login with valid credentials', async () => {
-        await mp.loginPage.userLogin('tomsmith', 'SuperSecretPassword!');
-        await mp.securePage.assertSecurePage();
+    test('Failed Login with invalid username', async ({pm, validUser}) => {
+        await pm.loginPage.userLogin('invalidUser', validUser.password);
+        await pm.loginPage.assertFailedUsername();
     });
 
-    test('Failed Login with invalid username', async () => {
-        await mp.loginPage.userLogin('invalidUser', 'SuperSecretPassword!');
-        await mp.loginPage.assertFailedUsername();
-    });
-
-    test('Failed Login with invalid password', async () => {
-        await mp.loginPage.userLogin('tomsmith', 'WrongPassword!');
-        await mp.loginPage.assertFailedPassword();
+    test('Failed Login with invalid password', async ({pm, validUser}) => {
+        await pm.loginPage.userLogin(validUser.username, 'WrongPassword!');
+        await pm.loginPage.assertFailedPassword();
     });
 });
