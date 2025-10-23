@@ -7,6 +7,8 @@ import { Page } from '@playwright/test';
 import { LoginPage } from './LoginPage';
 import { SecurePage } from './SecurePage';
 import { CheckboxesPage } from './CheckboxesPage';
+import { HorizontalSliderPage } from './HorizontalSliderPage';
+import { get } from 'http';
 
 export default class ManagePage {
     constructor(private readonly page: Page) {}
@@ -15,6 +17,7 @@ export default class ManagePage {
     private _loginPage?: LoginPage;
     private _securePage?: SecurePage;
     private _checkboxesPage?: CheckboxesPage;
+    private _horizontalSliderPage?: HorizontalSliderPage;
 
     // Lazy getters: create the page object only on the first use, then reuses it
     get loginPage(): LoginPage {
@@ -30,6 +33,10 @@ export default class ManagePage {
     }
     get checkboxesPage(): CheckboxesPage {
         return this._checkboxesPage ??= new CheckboxesPage(this.page);
+    }
+
+    get horizontalSliderPage(): HorizontalSliderPage {
+        return this._horizontalSliderPage ??= new HorizontalSliderPage(this.page);
     }
 
 }
